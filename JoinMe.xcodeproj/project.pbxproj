@@ -156,7 +156,6 @@
 				4FADA62A28C4C3DC00B17FC4 /* UIImageView + Extension.swift */,
 				4FADA62C28C4C44400B17FC4 /* UISegmentedControl + Extension.swift */,
 				4F5B9EF728CB9F1A00E37452 /* UIColor + Extension.swift */,
-				4FC764DD28D35E760049E30E /* UIAlert.swift */,
 			);
 			path = UICustom;
 			sourceTree = "<group>";
@@ -167,6 +166,7 @@
 				4F58DFA028C547330066A255 /* ButtonView.swift */,
 				4F58DFA228C548020066A255 /* OneTextFieldView.swift */,
 				4F58DFA428C5481D0066A255 /* AddPhotoView.swift */,
+				4FC764DD28D35E760049E30E /* UIAlert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
