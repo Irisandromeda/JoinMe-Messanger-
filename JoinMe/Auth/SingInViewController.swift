@@ -90,7 +90,19 @@ extension SingInViewController {
             switch result {
                 
             case .success(let user):
-                self.showAlert(title: "Successfully", message: "Welcome!")
+//                self.showAlert(title: "Successfully", message: "Welcome!")
+                FireStoreService.shared.getUserData(user: user) { result in
+                    switch result {
+                    case .success(let user):
+                        let tabBarViewController = TabBarViewController(currentUser: user)
+                        tabBarViewController.modalPresentationStyle = .fullScreen
+                        self.present(tabBarViewController, animated: true)
+                    case .failure(_):
+                        let userInfoViewController = UserInfoViewController(currentUser: user)
+                        userInfoViewController.modalPresentationStyle = .fullScreen
+                        self.present(userInfoViewController, animated: true)
+                    }
+                }
                 print(user.email!)
             case .failure(let error):
                 self.showAlert(title: "Something was wrong!", message: "Try again! \(error.localizedDescription)")

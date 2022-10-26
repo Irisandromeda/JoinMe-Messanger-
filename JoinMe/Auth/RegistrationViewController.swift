@@ -92,6 +92,7 @@ extension RegistrationViewController {
                 
             case .success(let user):
                 AuthService.service.confirmEmail()
+                self.present(UserInfoViewController(currentUser: user), animated: true)
                 self.showAlert(title: "Successfully", message: "Welcome!")
                 print(user.email!)
             case .failure(let error):

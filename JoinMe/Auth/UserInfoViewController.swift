@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class UserInfoViewController: UIViewController {
     
@@ -13,7 +14,7 @@ class UserInfoViewController: UIViewController {
     
     let titleLabel = UILabel(text: "Tell us about yourself", font: .avenir(size: 24), color: .black)
     let nameLabel = UILabel(text: "Name", font: .avenir(size: 17), color: .black)
-    let aboutYouLabel = UILabel(text: "About you", font: .avenir(size: 17), color: .black)
+    let aboutMeLabel = UILabel(text: "About you", font: .avenir(size: 17), color: .black)
     
     let nameTextField = OneTextField(textColor: .black, font: .avenir(size: 17))
     let aboutYouTextField = OneTextField(textColor: .black, font: .avenir(size: 17))
@@ -22,16 +23,60 @@ class UserInfoViewController: UIViewController {
     
     let saveButton = UIButton(title: "Save", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
     
+    let currentUser: User
+
+    init(currentUser: User) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addConstraints()
+        didButtonTap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupSubViews()
+    }
+    
+    func didButtonTap() {
+        saveButton.addTarget(self, action: #selector(saveButtonTap), for: .touchUpInside)
+        addPhotoDelegate.setImageButton.addTarget(self, action: #selector(setImageButtonTap), for: .touchUpInside)
+    }
+    
+    @objc private func setImageButtonTap() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+
+    @objc private func saveButtonTap() {
+        FireStoreService.shared.saveUserInfo(id: currentUser.uid,
+                                             email: currentUser.email!,
+                                             userImage: addPhotoDelegate.imageView.image,
+                                             username: nameTextField.text!,
+                                             description: aboutYouTextField.text!,
+                                             gender: selectGender.titleForSegment(at: selectGender.selectedSegmentIndex)) { result in
+            switch result {
+            case .success(let messangerUser):
+                let tabBar = TabBarViewController(currentUser: messangerUser)
+                tabBar.modalPresentationStyle = .fullScreen
+                self.present(tabBar, animated: true)
+                self.showAlert(title: "Completed", message: "")
+                print(messangerUser.email)
+            case .failure(let error):
+                self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -48,7 +93,7 @@ extension UserInfoViewController {
     
     private func addConstraints() {
         let nameStackView = UIStackView(arrangedSubViews: [nameLabel,nameTextField], axis: .vertical, spacing: 10)
-        let aboutYouStackView = UIStackView(arrangedSubViews: [aboutYouLabel,aboutYouTextField], axis: .vertical, spacing: 10)
+        let aboutYouStackView = UIStackView(arrangedSubViews: [aboutMeLabel,aboutYouTextField], axis: .vertical, spacing: 10)
         
         let centerStackView = UIStackView(arrangedSubViews: [nameStackView,aboutYouStackView,selectGender], axis: .vertical, spacing: 20)
         
@@ -79,31 +124,14 @@ extension UserInfoViewController {
             saveButton.widthAnchor.constraint(equalToConstant: 200)
         ])
     }
-    
 }
 
-    // MARK: FOR CANVAS
-
-import SwiftUI
-
-struct UserInfoViewControllerPreview: UIViewControllerRepresentable {
-    let viewControllerBuilder: () -> UIViewController
-
-    init(_ viewControllerBuilder: @escaping () -> UIViewController) {
-        self.viewControllerBuilder = viewControllerBuilder
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        return viewControllerBuilder()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-}
-
-struct UserInfoViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            UserInfoViewController()
+extension UserInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            return
         }
+        addPhotoDelegate.imageView.image = image
     }
 }

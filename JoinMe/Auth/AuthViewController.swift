@@ -9,10 +9,12 @@ import UIKit
 
 class AuthViewController: UIViewController {
     
-    let backgroundImage = UIImageView(image: #imageLiteral(resourceName: "background_2"), contentMode: .scaleAspectFit)
+    let backgroundImage = UIImageView(image: #imageLiteral(resourceName: "background"), contentMode: .scaleAspectFill)
+    let backgroundSliceOne = UIImageView(image: #imageLiteral(resourceName: "background_slice1"), contentMode: .center)
+    let backgroundSliceTwo = UIImageView(image: #imageLiteral(resourceName: "background_slice2"), contentMode: .center)
     
-    let createAccountButton = UIButton(title: "Create an account", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
-    let singInButton = UIButton(title: "I already have an account", titleColor: .black, backgroundColor: .white, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
+    let createAccountButton = UIButton(title: "GET STARTED", titleColor: .blue, backgroundColor: .white, font: .roboto(size: 17), isShadow: false, cornerRadius: 10)
+    let singInButton = UIButton(title: "SIGN IN", titleColor: .white, backgroundColor: .clear, font: .roboto(size: 17), isShadow: false, cornerRadius: 5)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +43,20 @@ extension AuthViewController {
     }
     
     private func addConstraints() {
-        let bottomStackView = UIStackView(arrangedSubViews: [createAccountButton,singInButton], axis: .vertical, spacing: 25)
+        let bottomStackView = UIStackView(arrangedSubViews: [createAccountButton,singInButton], axis: .vertical, spacing: 22)
+        
         
         view.addSubview(backgroundImage)
+        view.addSubview(backgroundSliceOne)
+        view.addSubview(backgroundSliceTwo)
         view.addSubview(bottomStackView)
         
         NSLayoutConstraint.activate([
-            bottomStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            bottomStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -121),
             bottomStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            bottomStackView.widthAnchor.constraint(equalToConstant: 385)
+            bottomStackView.widthAnchor.constraint(equalToConstant: 320),
+            bottomStackView.heightAnchor.constraint(equalToConstant: 86),
+            createAccountButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         
         NSLayoutConstraint.activate([
@@ -57,6 +64,16 @@ extension AuthViewController {
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             backgroundImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
             backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            backgroundSliceOne.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundSliceOne.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            backgroundSliceTwo.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundSliceTwo.leftAnchor.constraint(equalTo: view.leftAnchor)
         ])
     }
     

@@ -13,4 +13,8 @@ extension UIFont {
         return UIFont(name: "avenir", size: size)
     }
     
+    static func roboto(size: CGFloat) -> UIFont? {
+        return UIFont(name: "Roboto-Black", size: size)
+    }
+    
 }

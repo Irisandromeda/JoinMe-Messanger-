@@ -6,32 +6,54 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
     
+    let signOutButton = UIButton(title: "Sign Out", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
+    
+    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .mercury()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(signOutButtonTap))
         
         setupSearchBar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setupSubViews()
+    @objc private func signOutButtonTap() {
+            let alert = UIAlertController(title: nil, message: "You want to sign out?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { (_) in
+                do {
+                    try Auth.auth().signOut()
+                    UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
+                } catch {
+                    print("Error signing out: \(error.localizedDescription)")
+                }
+            }))
+            present(alert, animated: true, completion: nil)
     }
-    
+}
+
+    // MARK: Setup SearchBar
+
+extension SettingsViewController {
     private func setupSearchBar() {
-        let searchBar = UISearchController(searchResultsController: nil)
-        navigationItem.searchController = searchBar
-        navigationController?.navigationItem.backBarButtonItem?.tintColor = .systemPink
-        navigationItem.hidesBackButton = false
-        searchBar.hidesNavigationBarDuringPresentation = false
-        searchBar.obscuresBackgroundDuringPresentation = false
-        searchBar.searchBar.delegate = self
+        navigationController?.navigationBar.barTintColor = .mercury()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
     }
-    
 }
 
 extension SettingsViewController: UISearchBarDelegate {
@@ -43,7 +65,7 @@ extension SettingsViewController: UISearchBarDelegate {
 extension SettingsViewController {
     
     private func setupSubViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .mercury()
         
         view.subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false

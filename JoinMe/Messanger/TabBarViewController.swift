@@ -9,20 +9,31 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
+    private let currentUser: MessangerUser
+
+    init(currentUser: MessangerUser) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let listViewController = ListViewController()
-        let usersViewController = UsersViewController()
+        let listViewController = ListViewController(currentUser: currentUser)
+        let usersViewController = UsersViewController(currentUser: currentUser)
         let settingsViewController = SettingsViewController()
         
-        let conversationImage = UIImage(systemName: "person.2.crop.square.stack")!
-        let userImage = UIImage(systemName: "menucard")!
+        let conversationImage = UIImage(systemName: "menucard")!
+        let userImage = UIImage(systemName: "person.2.crop.square.stack")!
         let settingsImage = UIImage(systemName: "gearshape")!
         
         viewControllers = [
-            generateNavigationControl(rootViewController: listViewController, title: "People", image: conversationImage),
-            generateNavigationControl(rootViewController: usersViewController, title: "Conversations", image: userImage),
+            generateNavigationControl(rootViewController: usersViewController, title: "People", image: userImage),
+            generateNavigationControl(rootViewController: listViewController, title: "Conversations", image: conversationImage),
             generateNavigationControl(rootViewController: settingsViewController, title: "Settings", image: settingsImage)
         ]
         
@@ -30,8 +41,10 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setupTabBar() {
+        tabBar.backgroundColor = .mercury()
         tabBar.tintColor = .systemPink
-        tabBar.backgroundColor = .white
+        tabBar.unselectedItemTintColor = .gray
+        tabBarController?.tabBar.layer.cornerRadius = 10
     }
     
     private func generateNavigationControl(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
@@ -41,30 +54,4 @@ class TabBarViewController: UITabBarController {
         return navigationVC
     }
     
-}
-
-    // MARK: FOR CANVAS
-
-import SwiftUI
-
-struct TabBarViewControllerPreview: UIViewControllerRepresentable {
-    let viewControllerBuilder: () -> UIViewController
-
-    init(_ viewControllerBuilder: @escaping () -> UIViewController) {
-        self.viewControllerBuilder = viewControllerBuilder
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        return viewControllerBuilder()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-}
-
-struct TabBarViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            TabBarViewController()
-        }
-    }
 }

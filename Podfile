@@ -6,7 +6,11 @@ target 'JoinMe' do
   use_frameworks!
 
   # Pods for JoinMe
-  
-  pod 'GoogleSignIn'
+pod 'Firebase/Analytics'
+pod 'Firebase/Auth'
+pod 'GoogleSignIn'
+pod 'Firebase/Firestore'
+pod 'Firebase/Storage'
+pod 'SDWebImage', '~> 5.0'
 
 end
