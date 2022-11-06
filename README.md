@@ -10,10 +10,15 @@ Firebase
 # Pods for JoinMe
 
 pod 'MessageKit'
-pod 'GoogleSignIn'
-pod 'Firebase/Auth'
-pod 'Firebase/Storage'
-pod 'Firebase/Analytics'
-pod 'Firebase/Firestore'
-pod 'SDWebImage', '~> 5.0'
 
+pod 'GoogleSignIn'
+
+pod 'Firebase/Auth'
+
+pod 'Firebase/Storage'
+
+pod 'Firebase/Analytics'
+
+pod 'Firebase/Firestore'
+
+pod 'SDWebImage', '~> 5.0'
