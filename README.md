@@ -8,6 +8,7 @@ My Pet-Project!
 Firebase 
 
 # Pods for JoinMe
+
 pod 'MessageKit'
 pod 'GoogleSignIn'
 pod 'Firebase/Auth'
