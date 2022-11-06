@@ -9,6 +9,8 @@ import UIKit
 import FirebaseFirestore
 import MessageKit
 
+    //MARK: Message Model
+
 struct MessangerMessage: Hashable, MessageType, Comparable {
     var sender: MessageKit.SenderType
     let content: String

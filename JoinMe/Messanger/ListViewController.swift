@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseFirestore
 
-class ListViewController: UIViewController {
+final class ListViewController: UIViewController {
     
     var activeChats = [MessangerChat]()
     var waitingChats = [MessangerChat]()
@@ -82,7 +82,7 @@ class ListViewController: UIViewController {
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .mercury()
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         view.addSubview(collectionView)
@@ -235,7 +235,7 @@ extension ListViewController: UICollectionViewDelegate {
         case .activeChats:
             let chatViewController = ChatViewController(user: currentUser, chat: chat)
             chatViewController.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(chatViewController, animated: false)
+            navigationController?.pushViewController(chatViewController, animated: true)
         }
     }
 }

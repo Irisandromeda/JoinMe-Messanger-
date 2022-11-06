@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarViewController: UITabBarController {
+final class TabBarViewController: UITabBarController {
     
     private let currentUser: MessangerUser
 
@@ -41,10 +41,9 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setupTabBar() {
-        tabBar.backgroundColor = .mercury()
-        tabBar.tintColor = .systemPink
+        tabBar.backgroundColor = .white
+        tabBar.tintColor = #colorLiteral(red: 0.2666666667, green: 0.1725490196, blue: 0.8549019608, alpha: 1)
         tabBar.unselectedItemTintColor = .gray
-        tabBarController?.tabBar.layer.cornerRadius = 10
     }
     
     private func generateNavigationControl(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {

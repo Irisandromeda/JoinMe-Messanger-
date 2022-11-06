@@ -8,14 +8,14 @@
 import UIKit
 import SDWebImage
 
-class UserScreenFromUsersViewController: UIViewController {
+final class UserScreenFromUsersViewController: UIViewController {
     
     let containerView = UIView()
-    let userImage = UIImageView(image: #imageLiteral(resourceName: "testPhoto"), contentMode: .scaleAspectFill)
-    let username = UILabel(text: "Name", font: .avenir(size: 22), color: .black)
-    let aboutMe = UILabel(text: "About Me", font: .avenir(size: 18), color: .black)
-    let textField = OneTextField(textColor: .black, font: .avenir(size: 17))
-    let sendButton = UIButton(title: "Send a Message", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
+    let userImage = UIImageView(image: #imageLiteral(resourceName: "user_image"), contentMode: .scaleAspectFill)
+    let username = UILabel(text: "Name", font: .robotoMedium(size: 22), color: .black)
+    let aboutMe = UILabel(text: "About Me", font: .robotoRegular(size: 18), color: .black)
+    let textField = OneTextField(textColor: .black, font: .robotoMedium(size: 18))
+    let sendButton = UIButton(title: "Send a Message", titleColor: .white, backgroundColor: .systemPink, font: .robotoMedium(size: 16), isShadow: true, cornerRadius: 5)
     
     let user: MessangerUser
     

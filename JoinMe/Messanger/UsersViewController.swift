@@ -9,13 +9,15 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class UsersViewController: UIViewController {
+final class UsersViewController: UIViewController {
     
     var users = [MessangerUser]()
     private var usersListener: ListenerRegistration?
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, MessangerUser>!
+    
+    let containerView = GradientView(from: .top, to: .bottom, startColor: #colorLiteral(red: 0.7098039216, green: 0.5058823529, blue: 0.9803921569, alpha: 1), endColor: #colorLiteral(red: 0.3294117647, green: 0.3568627451, blue: 0.9137254902, alpha: 1))
     
     enum Section: Int, CaseIterable {
         case users
@@ -43,7 +45,6 @@ class UsersViewController: UIViewController {
         setupSearchBar()
         setupCollectionView()
         createDataSource()
-//        reloadData(searchText: nil)
         
         usersListener = ListenerService.shared.usersOverWatch(users: users, completion: { result in
             switch result {
@@ -56,16 +57,15 @@ class UsersViewController: UIViewController {
         })
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        setupSubviews()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .mercury()
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         view.addSubview(collectionView)
@@ -92,7 +92,7 @@ class UsersViewController: UIViewController {
 
 extension UsersViewController {
     private func setupSearchBar() {
-        navigationController?.navigationBar.barTintColor = .mercury()
+        navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
@@ -103,30 +103,9 @@ extension UsersViewController {
     }
 }
 
-//extension UsersViewController {
-//
-//    private func setupSubviews() {
-//        view.backgroundColor = .mercury()
-//
-//        view.subviews.forEach {
-//            $0.translatesAutoresizingMaskIntoConstraints = false
-//        }
-//    }
-//
-//}
-
     // MARK: Data Source
 
 extension UsersViewController {
-//    private func configure<T: ConfigureCell, A: Hashable>(cellType: T.Type, value: A, indexPath: IndexPath) -> T {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reuseId, for: indexPath) as? T else {
-//            fatalError("Failed dequeue")
-//        }
-//
-//        cell.configure(value: value)
-//        return cell
-//    }
-    
     private func createDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, MessangerUser>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             guard let section = Section(rawValue: indexPath.section) else {
@@ -170,7 +149,7 @@ extension UsersViewController {
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 3)
-        let spacing = CGFloat(20)
+        let spacing = CGFloat(15)
         group.interItemSpacing = .fixed(spacing)
 
         let section = NSCollectionLayoutSection(group: group)

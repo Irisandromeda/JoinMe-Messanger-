@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class WaitingChatCell: UICollectionViewCell, ConfigureCell {
+final class WaitingChatCell: UICollectionViewCell, ConfigureCell {
     
     static var reuseId: String = "WaitingChatCell"
     

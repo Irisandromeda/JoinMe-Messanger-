@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseFirestore
 
+    //MARK: User Model
+
 struct MessangerUser: Hashable, Decodable {
     var id: String
     var email: String

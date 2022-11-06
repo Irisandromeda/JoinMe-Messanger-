@@ -7,14 +7,14 @@
 
 import UIKit
 
-class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController {
     
-    let backgroundImage = UIImageView(image: #imageLiteral(resourceName: "background"), contentMode: .scaleAspectFill)
+    let gradientView = GradientView(from: .top, to: .bottom, startColor: #colorLiteral(red: 0.7098039216, green: 0.5058823529, blue: 0.9803921569, alpha: 1), endColor: #colorLiteral(red: 0.3294117647, green: 0.3568627451, blue: 0.9137254902, alpha: 1))
     let backgroundSliceOne = UIImageView(image: #imageLiteral(resourceName: "background_slice1"), contentMode: .center)
     let backgroundSliceTwo = UIImageView(image: #imageLiteral(resourceName: "background_slice2"), contentMode: .center)
     
-    let createAccountButton = UIButton(title: "GET STARTED", titleColor: .blue, backgroundColor: .white, font: .roboto(size: 17), isShadow: false, cornerRadius: 10)
-    let singInButton = UIButton(title: "SIGN IN", titleColor: .white, backgroundColor: .clear, font: .roboto(size: 17), isShadow: false, cornerRadius: 5)
+    let createAccountButton = UIButton(title: "GET STARTED", titleColor: #colorLiteral(red: 0.3403419256, green: 0.2859731317, blue: 0.8841039538, alpha: 1), backgroundColor: .white, font: .robotoBold(size: 16), isShadow: false, cornerRadius: 10)
+    let singInButton = UIButton(title: "SIGN IN", titleColor: #colorLiteral(red: 0.9718816876, green: 0.9753244519, blue: 0.9844822288, alpha: 1), backgroundColor: .clear, font: .robotoBold(size: 16), isShadow: false, cornerRadius: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ extension AuthViewController {
         let bottomStackView = UIStackView(arrangedSubViews: [createAccountButton,singInButton], axis: .vertical, spacing: 22)
         
         
-        view.addSubview(backgroundImage)
+        view.addSubview(gradientView)
         view.addSubview(backgroundSliceOne)
         view.addSubview(backgroundSliceTwo)
         view.addSubview(bottomStackView)
@@ -54,16 +54,16 @@ extension AuthViewController {
         NSLayoutConstraint.activate([
             bottomStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -121),
             bottomStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            bottomStackView.widthAnchor.constraint(equalToConstant: 320),
-            bottomStackView.heightAnchor.constraint(equalToConstant: 86),
-            createAccountButton.heightAnchor.constraint(equalToConstant: 48)
+            createAccountButton.heightAnchor.constraint(equalToConstant: 48),
+            bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25)
         ])
         
         NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            backgroundImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
-            backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0)
+            gradientView.topAnchor.constraint(equalTo: view.topAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -94,31 +94,5 @@ extension AuthViewController {
         present(viewController, animated: true)
     }
     
-}
-
-    // MARK: FOR CANVAS
-
-import SwiftUI
-
-struct ViewControllerPreview: UIViewControllerRepresentable {
-    let viewControllerBuilder: () -> UIViewController
-
-    init(_ viewControllerBuilder: @escaping () -> UIViewController) {
-        self.viewControllerBuilder = viewControllerBuilder
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        return viewControllerBuilder()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-}
-
-struct FirstViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            AuthViewController()
-        }
-    }
 }
 

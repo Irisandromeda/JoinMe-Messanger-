@@ -9,6 +9,8 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 
+    //MARK: Firebase Firestore Service (User data)
+
 class FireStoreService {
 
     static let shared = FireStoreService()

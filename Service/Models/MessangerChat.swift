@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseFirestore
 
+    //MARK: Chat Model
+
 struct MessangerChat: Hashable, Decodable {
     var friendUsername: String
     var friendImageURL: String

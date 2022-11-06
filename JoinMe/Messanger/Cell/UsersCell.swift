@@ -8,22 +8,24 @@
 import UIKit
 import SDWebImage
 
-class UsersCell: UICollectionViewCell, ConfigureCell {
+final class UsersCell: UICollectionViewCell, ConfigureCell {
 
     static var reuseId: String = "UsersCell"
     
     let containerView = UIView()
     let userImageView = UIImageView()
-    let name = UILabel(text: "User name", font: .avenir(size: 13), color: .black)
+    let name = UILabel(text: "User name", font: .robotoRegular(size: 13), color: .black)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
         addConstraints()
         
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 10
         self.clipsToBounds = true
+        
+        containerView.backgroundColor = #colorLiteral(red: 0.9718816876, green: 0.9753244519, blue: 0.9844822288, alpha: 1)
+        containerView.contentMode = .scaleAspectFill
     }
     
     func configure<A>(value: A) where A : Hashable {
@@ -58,9 +60,9 @@ extension UsersCell {
         
         NSLayoutConstraint.activate([
             userImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            userImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -25),
-            userImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            userImageView.rightAnchor.constraint(equalTo: containerView.rightAnchor)
+            userImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
+            userImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
+            userImageView.heightAnchor.constraint(equalToConstant: 120)
         ])
         
         NSLayoutConstraint.activate([

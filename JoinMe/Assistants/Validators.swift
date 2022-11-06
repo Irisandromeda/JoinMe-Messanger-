@@ -7,7 +7,9 @@
 
 import Foundation
 
-class Validators {
+    //MARK: Validators
+
+final class Validators {
     
     static func isFilled(username: String?, description: String?, gender: String?) -> Bool {
         guard let description = description,

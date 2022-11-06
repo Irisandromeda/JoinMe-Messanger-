@@ -7,6 +7,8 @@
 
 import Foundation
 
+    //MARK: Error examples
+
 enum UserErrors {
     case notFilled
     case photoNotExist

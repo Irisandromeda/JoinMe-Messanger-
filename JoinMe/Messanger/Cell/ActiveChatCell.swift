@@ -8,13 +8,13 @@
 import UIKit
 import SDWebImage
 
-class ActiveChatCell: UICollectionViewCell, ConfigureCell  {
+final class ActiveChatCell: UICollectionViewCell, ConfigureCell  {
     
     static var reuseId: String = "ActiveChatCell"
     
     let imageView = UIImageView()
-    let name = UILabel(text: "User name", font: .avenir(size: 17), color: .black)
-    let lastMessage = UILabel(text: "Hi, how are you?", font: .avenir(size: 17), color: .black)
+    let name = UILabel(text: "User name", font: .robotoMedium(size: 16), color: .black)
+    let lastMessage = UILabel(text: "Hi, how are you?", font: .robotoRegular(size: 14), color: #colorLiteral(red: 0.4862745098, green: 0.4862745098, blue: 0.4862745098, alpha: 1))
     let messageIndicator = UIView()
     
     override init(frame: CGRect) {
@@ -57,8 +57,8 @@ extension ActiveChatCell {
         imageView.backgroundColor = .black
         messageIndicator.backgroundColor = .systemPink
         
-//        imageView.layer.cornerRadius = 5
-//        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

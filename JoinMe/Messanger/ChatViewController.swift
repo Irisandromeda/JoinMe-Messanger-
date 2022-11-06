@@ -15,7 +15,7 @@ struct Sender: SenderType {
     var displayName: String
 }
 
-class ChatViewController: MessagesViewController {
+final class ChatViewController: MessagesViewController {
     
     private var messagesListener: ListenerRegistration?
     
@@ -81,7 +81,7 @@ class ChatViewController: MessagesViewController {
 }
 
 extension ChatViewController: MessagesDataSource {
-    var currentSender: MessageKit.SenderType {
+    func currentSender() -> SenderType {
         return Sender(senderId: user.id, displayName: user.username)
     }
     
@@ -143,7 +143,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
 }
 
-    // MARK: automaticaly scroll to bottom in chat
+    // MARK: Automaticaly scroll to bottom in chat
 
 extension UIScrollView {
     

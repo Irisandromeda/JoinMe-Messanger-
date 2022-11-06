@@ -7,19 +7,19 @@
 
 import UIKit
 
-class SingInViewController: UIViewController {
+final class SingInViewController: UIViewController {
     
-    let appleButton = UIButton(title: "Apple", titleColor: .black, backgroundColor: .white, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
-    let googleButton = UIButton(title: "Goolge", titleColor: .black, backgroundColor: .white, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
-    let facebookButton = UIButton(title: "Facebook", titleColor: .black, backgroundColor: .white, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
-    let loginButton = UIButton(title: "Login", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
-    let forgotPassword = UIButton(title: "Forgot your password?", titleColor: .systemPink, backgroundColor: .clear, font: .avenir(size: 15), isShadow: true, cornerRadius: 5)
+    let gradientView = GradientView(from: .top, to: .bottom, startColor: #colorLiteral(red: 0.7098039216, green: 0.5058823529, blue: 0.9803921569, alpha: 1), endColor: #colorLiteral(red: 0.3294117647, green: 0.3568627451, blue: 0.9137254902, alpha: 1))
+    let containerView = UIView()
     
-    let emailLabel = UILabel(text: "Email", font: .avenir(size: 15), color: .gray)
-    let passwordLabel = UILabel(text: "Password", font: .avenir(size: 15), color: .gray)
+    let loginButton = UIButton(title: "Login", titleColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 0.9999999404, alpha: 1) , backgroundColor: #colorLiteral(red: 0.3403419256, green: 0.2859731317, blue: 0.8841039538, alpha: 1) , font: .robotoMedium(size: 16), isShadow: true, cornerRadius: 10)
+    let forgotPassword = UIButton(title: "Forgot your password?", titleColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) , backgroundColor: .clear, font: .robotoRegular(size: 14), isShadow: false, cornerRadius: 0)
     
-    let emailTextField = OneTextField(textColor: .black, font: .avenir(size: 15))
-    let passwordTextField = OneTextField(textColor: .black, font: .avenir(size: 15))
+    let emailLabel = UILabel(text: "Email", font: .robotoRegular(size: 14), color: #colorLiteral(red: 0.5593468547, green: 0.5593467951, blue: 0.5593468547, alpha: 1))
+    let passwordLabel = UILabel(text: "Password", font: .robotoRegular(size: 14), color: #colorLiteral(red: 0.5593468547, green: 0.5593467951, blue: 0.5593468547, alpha: 1))
+    
+    let emailTextField = OneTextField(textColor: .black, font: .robotoRegular(size: 15))
+    let passwordTextField = OneTextField(textColor: .black, font: .robotoRegular(size: 15))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,52 +32,65 @@ class SingInViewController: UIViewController {
         
         setupSubViews()
     }
-    
 }
 
 extension SingInViewController {
     
     private func setupSubViews() {
-        view.backgroundColor = .mercury()
+        view.backgroundColor = .systemPink
+        
+        containerView.layer.cornerRadius = 30
+        containerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        passwordTextField.isSecureTextEntry = true
         
         view.subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         didButtonTap()
-        appleButton.buttonWithAppleLogo()
-        googleButton.buttonWithGoogleLogo()
-        facebookButton.buttonWithFacebookLogo()
     }
     
     private func addConstraints() {
-        let emailStackView = UIStackView(arrangedSubViews: [emailLabel,emailTextField], axis: .vertical, spacing: 10)
-        let passwordStackView = UIStackView(arrangedSubViews: [passwordLabel,passwordTextField], axis: .vertical, spacing: 10)
+        let emailStackView = UIStackView(arrangedSubViews: [emailLabel,emailTextField], axis: .vertical, spacing: 25)
+        let passwordStackView = UIStackView(arrangedSubViews: [passwordLabel,passwordTextField], axis: .vertical, spacing: 25)
+
+        let centerStackView = UIStackView(arrangedSubViews: [emailStackView,passwordStackView], axis: .vertical, spacing: 16)
+        let bottomStackView = UIStackView(arrangedSubViews: [loginButton,forgotPassword], axis: .vertical, spacing: 18)
         
-        let topStackView = UIStackView(arrangedSubViews: [appleButton,googleButton,facebookButton], axis: .vertical, spacing: 20)
-        let centerStackView = UIStackView(arrangedSubViews: [emailStackView,passwordStackView], axis: .vertical, spacing: 15)
-        let bottomStackView = UIStackView(arrangedSubViews: [forgotPassword,loginButton], axis: .vertical, spacing: 15)
+        view.addSubview(gradientView)
+        view.addSubview(containerView)
         
-        view.addSubview(topStackView)
         view.addSubview(centerStackView)
         view.addSubview(bottomStackView)
         
         NSLayoutConstraint.activate([
-            topStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
-            topStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            topStackView.widthAnchor.constraint(equalToConstant: 385)
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: 650)
         ])
         
         NSLayoutConstraint.activate([
-            centerStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 30),
+            gradientView.topAnchor.constraint(equalTo: view.topAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: containerView.topAnchor, constant: 40),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            centerStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 35),
             centerStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            centerStackView.widthAnchor.constraint(equalToConstant: 385)
+            centerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            centerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25)
         ])
         
         NSLayoutConstraint.activate([
-            bottomStackView.topAnchor.constraint(equalTo: centerStackView.bottomAnchor, constant: 30),
+            bottomStackView.topAnchor.constraint(equalTo: centerStackView.bottomAnchor, constant: 55),
             bottomStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            bottomStackView.widthAnchor.constraint(equalToConstant: 200)
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            loginButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     
@@ -85,12 +98,11 @@ extension SingInViewController {
         loginButton.addTarget(self, action: #selector(loginButtonTap), for: .touchUpInside)
     }
     
-    @objc func loginButtonTap() {
+    @objc private func loginButtonTap() {
         AuthService.service.login(email: emailTextField.text!, password: passwordTextField.text!) { result  in
             switch result {
                 
             case .success(let user):
-//                self.showAlert(title: "Successfully", message: "Welcome!")
                 FireStoreService.shared.getUserData(user: user) { result in
                     switch result {
                     case .success(let user):
@@ -110,30 +122,4 @@ extension SingInViewController {
         }
     }
     
-}
-
-    // MARK: FOR CANVAS
-
-import SwiftUI
-
-struct SingInViewControllerPreview: UIViewControllerRepresentable {
-    let viewControllerBuilder: () -> UIViewController
-
-    init(_ viewControllerBuilder: @escaping () -> UIViewController) {
-        self.viewControllerBuilder = viewControllerBuilder
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        return viewControllerBuilder()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-}
-
-struct SingInViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        SingInViewControllerPreview {
-            SingInViewController()
-        }
-    }
 }

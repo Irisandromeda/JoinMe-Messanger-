@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+    //MARK: FireBase Auth Service (User Auth)
+
 class AuthService {
     
     static let service = AuthService()

@@ -7,14 +7,14 @@
 
 import UIKit
 
-class UserScreenFromWaitingChatsViewController: UIViewController {
+final class UserScreenFromWaitingChatsViewController: UIViewController {
     
     let containerView = UIView()
-    let userImage = UIImageView(image: #imageLiteral(resourceName: "testPhoto2"), contentMode: .scaleAspectFill)
-    let username = UILabel(text: "Name", font: .avenir(size: 22), color: .black)
-    let aboutMe = UILabel(text: "About Me", font: .avenir(size: 18), color: .black)
-    let acceptButton = UIButton(title: "Accept", titleColor: .white, backgroundColor: .green, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
-    let cancelButton = UIButton(title: "Cancel", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
+    let userImage = UIImageView(image: #imageLiteral(resourceName: "user_image"), contentMode: .scaleAspectFill)
+    let username = UILabel(text: "Name", font: .robotoMedium(size: 22), color: .black)
+    let aboutMe = UILabel(text: "About Me", font: .robotoRegular(size: 18), color: .black)
+    let acceptButton = UIButton(title: "Accept", titleColor: .white, backgroundColor: .green, font: .robotoMedium(size: 16), isShadow: true, cornerRadius: 5)
+    let cancelButton = UIButton(title: "Cancel", titleColor: .white, backgroundColor: .systemPink, font: .robotoMedium(size: 16), isShadow: true, cornerRadius: 5)
     
     weak var delegate: ChatNavigation?
     

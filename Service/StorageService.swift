@@ -9,6 +9,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 
+    //MARK: Firebase Storage Service (Images)
+
 class StorageService {
     
     static let shared = StorageService()

@@ -8,15 +8,13 @@
 import UIKit
 import FirebaseAuth
 
-class SettingsViewController: UIViewController {
-    
-    let signOutButton = UIButton(title: "Sign Out", titleColor: .white, backgroundColor: .systemPink, font: .avenir(size: 17), isShadow: true, cornerRadius: 5)
+final class SettingsViewController: UIViewController {
     
     var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .mercury()
+        view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out",
                                                             style: .plain,
